@@ -1,11 +1,11 @@
 Summary:	Library for handling TIFF files
 Name:		libtiff
-Version:	4.0.2
-Release:	2
+Version:	4.0.3
+Release:	1
 License:	BSD-like
 Group:		Libraries
 Source0:	ftp://ftp.remotesensing.org/pub/libtiff/tiff-%{version}.tar.gz
-# Source0-md5:	04a08fa1e07e696e820a0c3f32465a13
+# Source0-md5:	051c1068e6a0627f461948c365290410
 Patch0:		%{name}-glut.patch
 URL:		http://www.remotesensing.org/libtiff/
 BuildRequires:	autoconf
