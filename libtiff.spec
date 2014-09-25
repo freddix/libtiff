@@ -1,12 +1,21 @@
 Summary:	Library for handling TIFF files
 Name:		libtiff
 Version:	4.0.3
-Release:	1
+Release:	2
 License:	BSD-like
 Group:		Libraries
 Source0:	ftp://ftp.remotesensing.org/pub/libtiff/tiff-%{version}.tar.gz
 # Source0-md5:	051c1068e6a0627f461948c365290410
 Patch0:		%{name}-glut.patch
+Patch1:		%{name}-libjpeg-turbo.patch
+Patch2:		%{name}-tiff2pdf-colors.patch
+Patch3:		%{name}-CVE-2012-4447.patch
+Patch4:		%{name}-CVE-2012-4564.patch
+Patch5:		%{name}-CVE-2013-1960.patch
+Patch6:		%{name}-CVE-2013-1961.patch
+Patch7:		%{name}-CVE-2013-4244.patch
+Patch8:		%{name}-CVE-2013-4231.patch
+Patch9:		%{name}-CVE-2013-4232.patch
 URL:		http://www.remotesensing.org/libtiff/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -58,6 +67,15 @@ Simple clients for manipulating tiff images.
 %prep
 %setup -qn tiff-%{version}
 %patch0 -p1
+%patch1 -p1
+%patch2 -p0
+%patch3 -p1
+%patch4 -p1
+%patch5 -p1
+%patch6 -p1
+%patch7 -p1
+%patch8 -p0
+%patch9 -p0
 
 %build
 %{__libtoolize}
@@ -76,7 +94,8 @@ install -d $RPM_BUILD_ROOT{%{_libdir},%{_includedir},%{_bindir},%{_mandir}/man1}
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-rm -rf html{,/*}/Makefile* $RPM_BUILD_ROOT%{_docdir}/tiff-%{version}
+%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/tiff-%{version}
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -92,9 +111,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%doc html/*
 %attr(755,root,root) %{_libdir}/libtiff.so
-%{_libdir}/libtiff.la
 %{_includedir}/tiff*.h
 %{_pkgconfigdir}/libtiff-4.pc
 %{_mandir}/man3/*
@@ -107,7 +124,6 @@ rm -rf $RPM_BUILD_ROOT
 %files cxx-devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libtiffxx.so
-%{_libdir}/libtiffxx.la
 %{_includedir}/tiffio.hxx
 
 %files progs
